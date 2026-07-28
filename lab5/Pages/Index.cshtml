@@ -1,0 +1,14 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to our CV application </h1>
+   
+        <form action="@Url.Page("CVupload")">
+        <button>Fill new CV </button>
+        </form>
+</div>

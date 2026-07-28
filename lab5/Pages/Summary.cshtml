@@ -1,0 +1,47 @@
+﻿@page "{randomNum}/{id}"
+@model lab5.Pages.SummaryModel
+@{
+}
+
+<form>
+    <ol>
+        <li> First Name: @Model.CV.FirstName</li>
+        <li> Last name: @Model.CV.LastName</li>
+        <li> Birthday: @Model.CV.Birthday</li>
+
+        <li> gender: @Model.CV.Gender </li>
+        <li> email : @Model.CV.Email</li>
+        <li> profile: <img src="@Model.CV.photoPath"></img> </li>
+
+        <li> Skills: 
+            <ul> @foreach (var skill in @Model.CV.Skills)
+                    {
+                        <li> @skill</li>
+                    }
+                </ul>
+        </li>
+         <li> Nationalities: 
+            <ul> @foreach (var nationality in Model.CV.Nationalities)
+                    {
+                        <li> @nationality</li>
+                    }
+                </ul>
+        </li>
+        <li> Random number: @Model.randomNum</li>
+    </ol>
+</form>
+@* public string LastName { set; get; }
+ 
+public DateOnly Birthday { set; get; }
+public IEnumerable<string>
+Nationalities {  set; get; }
+public string Gender { set; get; }
+public IEnumerable<string>
+Skills { set; get; }
+public string Email { set; get; }
+public string Password { set; get; }
+
+
+public string PhotoPath { set; get; }
+
+} *@
