@@ -5,13 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // ① Load connection string from appsettings.json
 var connString = builder.Configuration
     .GetConnectionString("DefaultConnection");
 
 // ② Register AppDbContext with DI (scoped lifetime)
 builder.Services.AddDbContext<AppDbContext>(
-    // ③ Choose database provider — swap for UseSqlServer, UseNpgsql…
+  // ③ Choose database provider — swap for UseSqlServer, UseNpgsql…
     options => options.UseSqlite(connString!));
 
 // Add services to the container.
@@ -29,6 +31,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+
+{
+
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    db.Database.EnsureCreated();
+
+}
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
