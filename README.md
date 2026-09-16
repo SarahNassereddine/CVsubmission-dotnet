@@ -8,7 +8,7 @@ A full-stack web application built with **.NET 8 (Razor Pages)** that allows app
 
 You can test the deployed application and explore both pages live on Render:
 
-- 📝 **CV Submission Page**: [https://cv-submission-dotnet.onrender.com/CVupload](https://cv-submission-dotnet.onrender.com/CVupload)
+- 📝 **CV Submission Page**: [https://cv-submission-dotnet.onrender.com](https://cv-submission-dotnet.onrender.com)
 - 🔐 **Admin Login Page**: [https://cv-submission-dotnet.onrender.com/Login](https://cv-submission-dotnet.onrender.com/Login)
   for testing: username: "admin"
    password: "Admin123!"
