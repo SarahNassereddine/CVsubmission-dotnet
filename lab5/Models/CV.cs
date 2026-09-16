@@ -3,6 +3,7 @@
     public class CV
     {
         public int Id { set; get; }
+        public Guid PublicToken { set; get; } = Guid.NewGuid();
         public string FirstName { set; get; }
         public string LastName { set; get; }
 

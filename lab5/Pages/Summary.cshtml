@@ -1,47 +1,42 @@
-﻿@page "{randomNum}/{id}"
+﻿@page "{randomNum}/{token:guid}"
 @model lab5.Pages.SummaryModel
 @{
+    ViewData["Title"] = "CV Summary";
 }
 
-<form>
-    <ol>
-        <li> First Name: @Model.CV.FirstName</li>
-        <li> Last name: @Model.CV.LastName</li>
-        <li> Birthday: @Model.CV.Birthday</li>
+<div class="container py-5" style="max-width:650px;">
+    <div class="card shadow-sm">
+        <div class="card-body p-4 text-center">
+            <img src="@Model.CV.photoPath" class="rounded-circle mb-3 border" style="width:140px;height:140px;object-fit:cover;" />
+            <h3 class="mb-0">@Model.CV.FirstName @Model.CV.LastName</h3>
+            <p class="text-muted mb-4">@Model.CV.Email</p>
 
-        <li> gender: @Model.CV.Gender </li>
-        <li> email : @Model.CV.Email</li>
-        <li> profile: <img src="@Model.CV.photoPath"></img> </li>
+            <table class="table table-borderless text-start">
+                <tbody>
+                    <tr><th class="w-25">Birthday</th><td>@Model.CV.Birthday</td></tr>
+                    <tr><th>Gender</th><td>@Model.CV.Gender</td></tr>
+                    <tr>
+                        <th>Skills</th>
+                        <td>
+                            @foreach (var skill in Model.CV.Skills)
+                            {
+                                <span class="badge bg-primary me-1">@skill</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Nationalities</th>
+                        <td>
+                            @foreach (var nationality in Model.CV.Nationalities)
+                            {
+                                <span class="badge bg-secondary me-1">@nationality</span>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <li> Skills: 
-            <ul> @foreach (var skill in @Model.CV.Skills)
-                    {
-                        <li> @skill</li>
-                    }
-                </ul>
-        </li>
-         <li> Nationalities: 
-            <ul> @foreach (var nationality in Model.CV.Nationalities)
-                    {
-                        <li> @nationality</li>
-                    }
-                </ul>
-        </li>
-        <li> Random number: @Model.randomNum</li>
-    </ol>
-</form>
-@* public string LastName { set; get; }
- 
-public DateOnly Birthday { set; get; }
-public IEnumerable<string>
-Nationalities {  set; get; }
-public string Gender { set; get; }
-public IEnumerable<string>
-Skills { set; get; }
-public string Email { set; get; }
-public string Password { set; get; }
-
-
-public string PhotoPath { set; get; }
-
-} *@
+            <a asp-page="Index" class="btn btn-outline-primary mt-2">Back to home</a>
+        </div>
+    </div>
+</div>

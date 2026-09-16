@@ -1,5 +1,6 @@
 using lab5.Data;
 using lab5.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,13 +18,22 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IPhotoServices, PhotoServices>();
 builder.Services.AddScoped<IDBServices, DBServices>();
+
+//Admin login: cookie-based authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/Login";
+        options.ExpireTimeSpan = TimeSpan.FromHours(2);
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -32,6 +42,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();   // must come BEFORE UseAuthorization
 app.UseAuthorization();
 
 app.MapRazorPages();

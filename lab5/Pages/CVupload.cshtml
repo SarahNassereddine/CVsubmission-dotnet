@@ -3,91 +3,113 @@
 @{
     Random random = new Random();
     int dynamicNumber = random.Next(1, 100);
-   
+    ViewData["Title"] = "New CV";
 }
 
-<div asp-validation-summary="All" class="danger"></div>
+<div class="container py-5" style="max-width:700px;">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="card-title mb-4 text-center">Submit Your CV</h2>
 
-<form method="post" enctype="multipart/form-data" asp-route-randomNum="@dynamicNumber">
-<label asp-for="ViewModel.FirstName"></label>
-<input asp-for="ViewModel.FirstName" name="FirstName" />
-    <span asp-validation-for="ViewModel.FirstName" data-valmsg-for="FirstName"></span>
-<hr />
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+            }
 
-<label asp-for="ViewModel.LastName"></label>
-<input asp-for="ViewModel.LastName" name="LastName" />
-    <span asp-validation-for="ViewModel.LastName" data-valmsg-for="LastName"></span>
-<hr />
+            <form method="post" enctype="multipart/form-data" asp-route-randomNum="@dynamicNumber">
 
-<label asp-for="ViewModel.Birthday"></label>
-<input asp-for="ViewModel.Birthday" name="Birthday" />
-    <span asp-validation-for="ViewModel.Birthday" data-valmsg-for="Birthday"></span>
-<hr />
-<label asp-for="NationalitiesOptions"></label>
-<select asp-items="@Model.NationalitiesOptions" asp-for="ViewModel.Nationalities"  name="Nationalities"></select>
-<span asp-validation-for="ViewModel.Nationalities" data-valmsg-for="Nationalities"></span>
-<hr />
+                <div class="mb-3">
+                    <label asp-for="ViewModel.FirstName" class="form-label"></label>
+                    <input asp-for="ViewModel.FirstName" name="FirstName" class="form-control" />
+                    <span asp-validation-for="ViewModel.FirstName" data-valmsg-for="FirstName" class="text-danger"></span>
+                </div>
 
-<label> Gender</label>
-    <input type="radio" asp-for="ViewModel.Gender" value="Male" name="Gender" /> Male
-    <input type="radio" asp-for="ViewModel.Gender" value="Female" name="Gender" /> Female
-    <br />
-    <span asp-validation-for="ViewModel.Gender" data-valmsg-for="Gender"></span>
+                <div class="mb-3">
+                    <label asp-for="ViewModel.LastName" class="form-label"></label>
+                    <input asp-for="ViewModel.LastName" name="LastName" class="form-control" />
+                    <span asp-validation-for="ViewModel.LastName" data-valmsg-for="LastName" class="text-danger"></span>
+                </div>
 
-<hr />
-    <label asp-for="ViewModel.Skills"></label>
+                <div class="mb-3">
+                    <label asp-for="ViewModel.Birthday" class="form-label"></label>
+                    <input asp-for="ViewModel.Birthday" name="Birthday" class="form-control" />
+                    <span asp-validation-for="ViewModel.Birthday" data-valmsg-for="Birthday" class="text-danger"></span>
+                </div>
 
-    @*
-            Loop through a list of predefined skills.
-            Use "checked" attribute based on whether the skill is already selected (preserved on form re-render).
-        *@
-    @foreach (var skill in Model.SkillsOptions)
-    {
-        <div>
-            <input type="checkbox" name="Skills" value="@skill" checked="@Model.ViewModel.Skills.Contains(skill)" /> @skill
+                <div class="mb-3">
+                    <label asp-for="NationalitiesOptions" class="form-label"></label>
+                    <select asp-items="@Model.NationalitiesOptions" asp-for="ViewModel.Nationalities" name="Nationalities" class="form-select" multiple></select>
+                    <span asp-validation-for="ViewModel.Nationalities" data-valmsg-for="Nationalities" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-block">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="ViewModel.Gender" value="Male" name="Gender" />
+                        <label class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="ViewModel.Gender" value="Female" name="Gender" />
+                        <label class="form-check-label">Female</label>
+                    </div>
+                    <span asp-validation-for="ViewModel.Gender" data-valmsg-for="Gender" class="text-danger d-block"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ViewModel.Skills" class="form-label d-block"></label>
+                    @foreach (var skill in Model.SkillsOptions)
+                    {
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="Skills" value="@skill" checked="@Model.ViewModel.Skills.Contains(skill)" />
+                            <label class="form-check-label">@skill</label>
+                        </div>
+                    }
+                    <span asp-validation-for="ViewModel.Skills" data-valmsg-for="Skills" class="text-danger d-block"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ViewModel.Email" class="form-label"></label>
+                    <input asp-for="ViewModel.Email" name="Email" class="form-control" />
+                    <span asp-validation-for="ViewModel.Email" data-valmsg-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ViewModel.EmailConfirmation" class="form-label"></label>
+                    <input asp-for="ViewModel.EmailConfirmation" name="EmailConfirmation" class="form-control" />
+                    <span asp-validation-for="ViewModel.EmailConfirmation" data-valmsg-for="EmailConfirmation" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ViewModel.Password" class="form-label"></label>
+                    <input asp-for="ViewModel.Password" name="Password" class="form-control" />
+                    <span asp-validation-for="ViewModel.Password" data-valmsg-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 p-3 bg-light rounded border">
+                    <label class="form-label fw-semibold">Anti-bot check: what is the sum of these two numbers?</label>
+                    <div class="d-flex align-items-center gap-2">
+                        <input asp-for="ViewModel.rand1" class="form-control" style="width:70px;" readonly />
+                        <span>+</span>
+                        <input asp-for="ViewModel.rand2" class="form-control" style="width:70px;" readonly />
+                        <span>=</span>
+                        <input name="rsum" asp-for="ViewModel.rsum" class="form-control" style="width:90px;" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="ViewModel.Image" class="form-label"></label>
+                    <input asp-for="ViewModel.Image" name="Image" class="form-control" />
+                    <span asp-validation-for="ViewModel.Image" name="Image" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                </div>
+            </form>
         </div>
-    }
-    <br />
-    <span asp-validation-for="ViewModel.Skills" data-valmsg-for="Skills"></span>
-<hr />
-    <label asp-for="ViewModel.Email"></label>
-    <input asp-for="ViewModel.Email" name="Email" />
-    <br />
-    <span asp-validation-for="ViewModel.Email" data-valmsg-for="Email"></span>
-<hr />
-    <label asp-for="ViewModel.EmailConfirmation"></label>
-    <input asp-for="ViewModel.EmailConfirmation" name="EmailConfirmation" />
-    <br />
-    <span asp-validation-for="ViewModel.EmailConfirmation" data-valmsg-for="EmailConfirmation"></span>
-<hr />
-    <label asp-for="ViewModel.Password"></label>
-    <input asp-for="ViewModel.Password" name="Password" />
-    <br />
-    <span asp-validation-for="ViewModel.Password" data-valmsg-for="Password"></span>
-<hr />
-    <label>Sum of 2 randoms:</label>
-    <input  asp-for="ViewModel.rand1" readonly />
-    <br />
-    <input  asp-for="ViewModel.rand2" readonly />
-    <br />
-    <input name="rsum" asp-for="ViewModel.rsum"  />
-<hr />
+    </div>
+</div>
 
-<label asp-for="ViewModel.Image"></label>
-<input asp-for="ViewModel.Image" name="Image"/>
-<span asp-validation-for="ViewModel.Image" name="Image"></span>
-<br />
-<hr />
-<button type="submit">submit</button>
-
-</form>
-
-@* Essential for Client Side Validations.*@
 @section Scripts {
     @Html.Partial("_ValidationScriptsPartial")
 }
-
-
-
-
-

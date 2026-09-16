@@ -7,26 +7,23 @@ namespace lab5.Pages
 {
     public class SummaryModel : PageModel
     {
-        [BindProperty(SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
+        public Guid token { get; set; }
 
-        public int id { get; set; }
-        [BindProperty(SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
         public int randomNum { set; get; }
-        
 
         public IDBServices dBServices;
         public ViewProperty CV { set; get; }
-     
-       
-        public SummaryModel( IDBServices dbServices)
+
+        public SummaryModel(IDBServices dbServices)
         {
             this.dBServices = dbServices;
         }
         public async Task OnGet()
         {
-            CV = await dBServices.getCVSummary(id);
+            CV = await dBServices.getCVSummary(token);
             return;
-
         }
     }
 }

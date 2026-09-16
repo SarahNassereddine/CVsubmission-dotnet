@@ -99,9 +99,9 @@ namespace lab5.Pages
                 return Page();  // Returns PageResult
             }
 
-            int id = await  _DbServices.saveCV(Input);
+            Guid token = await  _DbServices.saveCV(Input);
          
-            return RedirectToPage("/Summary", new {  randomNum, id});
+            return RedirectToPage("/Summary", new {  randomNum, token });
         }
     }
 }

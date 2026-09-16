@@ -2,13 +2,13 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to our CV application </h1>
-   
-        <form action="@Url.Page("CVupload")">
-        <button>Fill new CV </button>
-        </form>
+<div class="text-center py-5">
+    <h1 class="display-4 fw-bold mb-3">CV Submission Portal</h1>
+    <p class="lead text-muted mb-4">Create, store, and view submitted CVs </p>
+
+    <div class="d-flex justify-content-center gap-3">
+        <a asp-page="CVupload" class="btn btn-primary btn-lg px-4">+ Fill new CV</a>
+    </div>
 </div>

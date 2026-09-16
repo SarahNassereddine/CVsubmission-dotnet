@@ -1,10 +1,11 @@
-﻿using lab5.Models;
+using lab5.Models;
 
 namespace lab5.Services
 {
     public interface IDBServices
     {
-        public Task<int> saveCV(CVBindingModel cvCMD);
-        public Task <ViewProperty> getCVSummary(int cvId);
+        public Task<Guid> saveCV(CVBindingModel cvCMD);
+        public Task<ViewProperty> getCVSummary(Guid token);
+        public Task<List<ViewProperty>> getAllCVs(string? search);
     }
 }
